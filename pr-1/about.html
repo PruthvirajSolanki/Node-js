@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Node.js - About Us</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary: #ffffff;
+      --secondary: #f0f4f8;
+      --accent: #00a86b;
+      --text-dark: #333;
+      --text-light: #555;
+      --text-muted: #666;
+      --card-bg: #ffffff;
+      --radius: 12px;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+      list-style: none;
+    }
+
+    body {
+      background: var(--secondary);
+      color: var(--text-dark);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    /* Updated Header */
+    header {
+      background: linear-gradient(90deg, #00a86b 0%, #007f5f 100%);
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo a {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 1px;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .logo a:hover {
+      transform: scale(1.1);
+      color: #f0f4f8;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      position: relative;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #ffffff;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 4px;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: #f0f4f8;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after,
+    nav a.active::after {
+      width: 50%;
+    }
+
+    nav a:hover {
+      color: #f0f4f8;
+    }
+
+    .toggle-icon {
+      display: none;
+      font-size: 1.6rem;
+      color: #ffffff;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .toggle-icon:hover {
+      color: #f0f4f8;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 120px 2rem 60px;
+      background: url('https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') no-repeat center/cover;
+      color: #fff;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+    }
+
+    section {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .section-title h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+    }
+
+    .section-title p {
+      color: var(--text-light);
+    }
+
+    .vision-values {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .faq-item {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+      padding: 1rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .faq-item:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .faq-question {
+      font-weight: 600;
+    }
+
+    .faq-answer {
+      display: none;
+      margin-top: 0.5rem;
+      color: var(--text-light);
+    }
+
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+        position: absolute;
+        top: 70px;
+        right: 2rem;
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        padding: 1rem;
+        box-shadow: var(--shadow-md);
+      }
+
+      nav.show {
+        display: flex;
+      }
+
+      .toggle-icon {
+        display: block;
+      }
+
+      .vision-values {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-container">
+      <div class="logo"><a href="/">NodeJS<span>.</span></a></div>
+      <nav id="nav">
+        <a href="/">Home</a>
+        <a href="/about" class="active">About</a>
+        <a href="/services">Services</a>
+        <a href="/blog">Blog</a>
+        <a href="/contact">Contact</a>
+      </nav>
+      <div class="toggle-icon" id="toggleBtn">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>About Us</h1>
+    <p>Building scalable, efficient, and future-proof applications using Node.js technology.</p>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>Our Vision</h2>
+      <p>Creating innovative software solutions that empower developers and businesses alike.</p>
+    </div>
+    <div class="vision-values">
+      <div class="card">
+        <h3>Innovation</h3>
+        <p>We embrace cutting-edge technologies and continuously improve our practices to stay ahead in the tech world.</p>
+      </div>
+      <div class="card">
+        <h3>Community</h3>
+        <p>Collaboration and knowledge-sharing are at the heart of what we do. We support developers and open-source initiatives.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>Our Values</h2>
+      <p>We believe in principles that drive our passion and work ethic.</p>
+    </div>
+    <div class="vision-values">
+      <div class="card">
+        <h3>Integrity</h3>
+        <p>We maintain transparency, trust, and honesty in all interactions, delivering on our promises.</p>
+      </div>
+      <div class="card">
+        <h3>Excellence</h3>
+        <p>We strive for excellence in every project, ensuring robust and maintainable solutions for our clients.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>Frequently Asked Questions</h2>
+      <p>Answers to common queries about our approach and technology.</p>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">What makes Node.js different from other runtimes?</div>
+      <div class="faq-answer">Node.js offers a non-blocking event-driven architecture that helps build efficient and scalable network applications using JavaScript on the server-side.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Is Node.js suitable for all types of applications?</div>
+      <div class="faq-answer">While Node.js excels in handling asynchronous tasks and real-time data, it’s best suited for applications where performance and scalability are key requirements.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Do you provide support for open-source contributions?</div>
+      <div class="faq-answer">Yes, we actively contribute to and support the open-source community by sharing knowledge, tools, and collaborating on projects.</div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 NodeJS. All rights reserved.
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('toggleBtn');
+    const nav = document.getElementById('nav');
+
+    toggleBtn.addEventListener('click', () => {
+      nav.classList.toggle('show');
+    });
+
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('show');
+      });
+    });
+
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+
+</html>

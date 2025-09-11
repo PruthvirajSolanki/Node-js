@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Node.js - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #ffffff;
+      --secondary: #f0f4f8;
+      --accent: #00a86b;
+      --text-dark: #333;
+      --text-muted: #666;
+      --card-bg: #ffffff;
+      --radius: 12px;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+      list-style: none;
+    }
+
+    body {
+      background: var(--secondary);
+      color: var(--text-dark);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    header {
+      background: linear-gradient(90deg, #00a86b 0%, #007f5f 100%);
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo a {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 1px;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .logo a:hover {
+      transform: scale(1.1);
+      color: #f0f4f8;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      position: relative;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #ffffff;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 4px;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: #f0f4f8;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after,
+    nav a.active::after {
+      width: 50%;
+    }
+
+    nav a:hover {
+      color: #f0f4f8;
+    }
+
+    .toggle-icon {
+      display: none;
+      font-size: 1.6rem;
+      color: #ffffff;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .toggle-icon:hover {
+      color: #f0f4f8;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 140px 2rem 80px;
+      background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnqRWVdCQP1pGob1Im1fZY9hTMojMvQciSEg&s') no-repeat center/cover;
+      color: #fff;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      color: #f0f4f8;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .cta-button {
+      padding: 0.8rem 2rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      background: var(--accent);
+      color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .cta-button.secondary {
+      background: transparent;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+    }
+
+    .cta-button.secondary:hover {
+      background: var(--accent);
+      color: var(--primary);
+    }
+
+    section {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+
+    .features {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .features h2 {
+      color: var(--accent);
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .features p {
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .feature-card i {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+    }
+
+    .about {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .about h2 {
+      color: var(--accent);
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .about p {
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 1rem;
+    }
+
+    .partners {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .partners h2 {
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+
+    .partners-logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .partners-logos img {
+      max-width: 150px;
+      opacity: 0.7;
+      transition: var(--transition);
+    }
+
+    .partners-logos img:hover {
+      opacity: 1;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+        position: absolute;
+        top: 70px;
+        right: 2rem;
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        padding: 1rem;
+        box-shadow: var(--shadow-md);
+      }
+
+      nav.show {
+        display: flex;
+      }
+
+      .toggle-icon {
+        display: block;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-container">
+      <div class="logo"><a href="/">NodeJS<span>.</span></a></div>
+      <nav id="nav">
+        <a href="/" class="active">Home</a>
+        <a href="/about">About</a>
+        <a href="/services">Services</a>
+        <a href="/blog">Blog</a>
+        <a href="/contact">Contact</a>
+      </nav>
+      <div class="toggle-icon" id="toggleBtn">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Empowering Developers Worldwide</h1>
+      <p>Node.js helps you build efficient, scalable, and high-performance applications. Join our community and innovate faster than ever before.</p>
+      <div class="cta-buttons">
+        <a href="#features" class="cta-button">Explore Features</a>
+        <a href="#partners" class="cta-button secondary">Our Partners</a>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <h2>Key Features</h2>
+      <p>From blazing performance to seamless integrations, Node.js offers developers the tools needed to create extraordinary applications.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fas fa-bolt"></i>
+          <h3>High Performance</h3>
+          <p>Built on Chrome's V8 engine, Node.js delivers outstanding speed for real-time data processing and interactions.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-shield-alt"></i>
+          <h3>Secure by Design</h3>
+          <p>Use modern security practices to keep your applications and data protected from vulnerabilities and threats.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-code"></i>
+          <h3>Developer Friendly</h3>
+          <p>Write full-stack applications with JavaScript and leverage a rich ecosystem of tools, libraries, and frameworks.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about">
+      <h2>About Node.js</h2>
+      <p>Node.js is an open-source, cross-platform runtime environment that enables developers to build fast, scalable network applications. With its event-driven architecture and asynchronous I/O, Node.js makes it easier to create high-performance systems that are responsive and efficient.</p>
+    </section>
+
+  <footer>
+    &copy; 2025 NodeJS. All rights reserved.
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('toggleBtn');
+    const nav = document.getElementById('nav');
+
+    toggleBtn.addEventListener('click', () => {
+      nav.classList.toggle('show');
+    });
+
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('show');
+      });
+    });
+  </script>
+</body>
+
+</html>
