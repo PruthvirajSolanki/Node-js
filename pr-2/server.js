@@ -13,7 +13,7 @@ let books = [
     publishedDate: "2013-04-01",
     duplicates: 8,
     imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnG0S9JyErE_jFmbfLIfGn4xJW4X_1yRP17w&s"
-  },
+  }, 
   {
     bookNo: "502",
     bookName: "Atomic Habits",
