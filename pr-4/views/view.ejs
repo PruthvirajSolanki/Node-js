@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Books</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #74b9ff, #ffeaa7);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .table-container {
+            width: 70%;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #0984e3;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        .btn {
+            margin-right: 5px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="table-container">
+        <h2>View Books</h2>
+        <table class="table table-striped table-hover">
+            <thead class="table-primary">
+                <tr>
+                    <th>Id</th>
+                    <th>Book_Name</th>
+                    <th>Book_Author</th>
+                    <th>Book_Price (₹)</th>
+                    <th>Book_Pages</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% books.map((book, i)=> {
+                    const { id, book_name, book_author, book_price, book_pages } = book;
+                    %>
+                    <tr>
+                        <td>
+                            <%= ++i %>
+                        </td>
+                        <td>
+                            <%= book_name %>
+                        </td>
+                        <td>
+                            <%= book_author %>
+                        </td>
+                        <td>
+                            <%= book_price %> ₹
+                        </td>
+                        <td>
+                            <%= book_pages %>
+                        </td>
+                        <td>
+                            <a href="/editBook?Id=<%= id %>" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="/deleteBook?deleteId=<%= id %>" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+
+        <div class="text-center mt-3">
+            <a href="/add" class="btn btn-primary">Add New Book</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
