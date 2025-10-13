@@ -1,16 +1,17 @@
 const express = require("express");
-const port = 9000;
-
-const dbConnection = require("./config/dbconnection");
+const DB_connection = require("./config/dbconnect");
+const movieRouter = require("./routes/movie.route")
 const app = express();
+const port = 8005;
 
 app.set("view engine", "ejs");
-app.use(express.urlencoded({extended: true}));
-app.use("/uploads", express.static('uploads'));
+app.use(express.urlencoded());
+app.use(express.static("public"));
+app.use("/uploads", express.static("uploads"));
 
-app.use('/', require("./routes/movie.routes"))
+app.use("/", movieRouter)
 
 app.listen(port, () => {
-    dbConnection;
-    console.log(`Server started at http://localhost:${port}`);
+    DB_connection();
+    console.log(`Server running on http://localhost:${port}`);
 });
