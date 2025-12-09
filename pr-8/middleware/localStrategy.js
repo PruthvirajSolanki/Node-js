@@ -9,7 +9,7 @@ passport.use(new LocalStrategy({
     let admin = await AdminModel.findOne({ email: email });
     if (!admin) {
         return cb(null, false);
-    }
+    } 
     let matchpass = await bcrypt.compare(password, admin.password)
     if (!matchpass) {
         return cb(null, false);
@@ -17,7 +17,7 @@ passport.use(new LocalStrategy({
         return cb(null, admin)
     }
 }));
-
+   
 passport.serializeUser((user, cb)=> {
     return cb(null, user.id);
 })
@@ -29,7 +29,7 @@ passport.deserializeUser(async(id, cb)=> {
     }
 })
 
-passport.setAuthenticated = (req, res, next) => {
+passport.setAuthenticated =  (req, res, next) => {
     if(req.isAuthenticated()){
         next();
     }else{
